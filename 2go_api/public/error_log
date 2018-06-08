@@ -1,0 +1,2 @@
+[26-Apr-2018 15:30:30 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) in /home/zad5xjdi9vh3/public_html/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[26-Apr-2018 15:30:33 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 135168 bytes) in /home/zad5xjdi9vh3/public_html/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
