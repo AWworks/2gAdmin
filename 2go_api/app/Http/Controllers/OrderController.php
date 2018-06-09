@@ -24,6 +24,8 @@ class OrderController extends Controller
             $orders            = null;
             $foodItemOrderList = array();
             $comboOrderList    = array();
+            $fromDate = $request->input('fromDate');
+            $toDate = $request->input('toDate');
 
             $foodItems = FoodItem::whereIn('foodItemCreator', $function->ownerId())->get();
 
@@ -54,6 +56,9 @@ class OrderController extends Controller
                         $ids[] = $order->order_id;
                     }
                     $comboOrderList = Order::whereIn('order_id', $ids)->get();
+                    if(!empty($fromDate) &&  !empty($toDate)) {
+                        $comboOrderList = Order::whereIn('order_id', $ids)->whereBetween('orderTime',[$fromDate, $toDate])->orderBy('orderTime', 'DESC')->get();
+                    }
                 }
             }
 
@@ -66,6 +71,9 @@ class OrderController extends Controller
             $function    = new Functions();
             $foodItem_id = null;
             $combo_id    = null;
+            $fromDate = $request->input('fromDate');
+            $toDate = $request->input('toDate');
+
             $foodItems   = FoodItem::whereIn('foodItemCreator', $function->ownerId())->get();
             foreach ($foodItems as $foodItem) {
                 $foodItem_id[] = $foodItem->id;
@@ -84,6 +92,12 @@ class OrderController extends Controller
                 }
                 $orders = Order::whereIn('order_id', $ids)->get();
             }
+            
+            $users = Order::where('user_id', user_Id )->get();
+            foreach ($users as $usr)
+            {
+               echo 'aw '.$usr->user_id;
+            }
             if ($combo_id) {
                 $combo_order = Order::whereIn('combo_id', $combo_id)->get();
                 if (!$combo_order->isEmpty()) {
@@ -91,6 +105,16 @@ class OrderController extends Controller
                         $ids[] = $order->order_id;
                     }
                     $orders = Order::whereIn('order_id', $ids)->get();
+                   
+                   
+                    
+                       // Filters for orderstatus :AW
+                    if(!empty($fromDate) &&  !empty($toDate)){
+                        $orders = Order::whereIn('order_id', $ids)->whereBetween('orderTime',[$fromDate, $toDate])->orderBy('orderTime', 'DESC')->get();
+                    }else{
+                        // $orders = Order::whereIn('order_id', $ids)->get();
+                        $orders = Order::whereIn('order_id', $ids)->get(); //->wheredate('orderTime' ,Carbon::today())
+                    }
                 }
             }
 

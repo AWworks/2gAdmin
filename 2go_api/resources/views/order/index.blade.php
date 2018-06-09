@@ -76,12 +76,12 @@
                                 {!! Form::open(['method' => 'PUT','route' => ['order.update', $order->order_id],'style'=>'display:inline']) !!}
                                 {{ csrf_field() }}
                                 {{ Form::hidden('status', 'Confirmed') }}
-                                {!! Form::submit('Confirm',['class' => 'btn btn-success']) !!}
+                                {!! Form::button('<i class="fa check"></i>', ['class'=>'btn btn-success', 'type'=>'submit']) !!}
                                 {!! Form::close() !!}
                                 {!! Form::open(['method' => 'PUT','route' => ['order.update', $order->order_id],'style'=>'display:inline']) !!}
                                 {{ csrf_field() }}
                                 {{ Form::hidden('status', 'Declined') }}
-                                {!! Form::submit('Decline',['class' => 'btn btn-danger','onclick'=>"return confirm('Are you sure to cancel order?')"]) !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-remove"></i>', ['class'=>'btn btn-danger', 'type'=>'submit','onclick'=>"return confirm('Are you sure to cancel order?')"]) !!}
                                 {!! Form::close() !!}
                             @elseif($order->Status == 'Confirmed')
                                 {!! Form::open(['method' => 'PUT','route' => ['order.update', $order->order_id],'style'=>'display:inline']) !!}
